@@ -120,3 +120,83 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    # --- Фільтри ---
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+        "require_debug_false": {
+            "()": "django.utils.log.RequireDebugFalse",
+        },
+    },
+
+    # --- Форматери ---
+    "formatters": {
+        "verbose": {
+            "format": "[{levelname}] {asctime} {name}: {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "[{levelname}] {message}",
+            "style": "{",
+        },
+    },
+
+    # --- Хендлери ---
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "filters": ["require_debug_true"],
+        },
+        "file_info": {
+            "class": "logging.FileHandler",
+            "level": "INFO",
+            "filename": os.path.join(LOG_DIR, "info.log"),
+            "formatter": "verbose",
+        },
+        "file_errors": {
+            "class": "logging.FileHandler",
+            "level": "ERROR",
+            "filename": os.path.join(LOG_DIR, "errors.log"),
+            "formatter": "verbose",
+        },
+    },
+
+    # --- Логгери ---
+    "loggers": {
+        # 1) Логгер Django
+        "django": {
+            "handlers": ["console", "file_errors"],
+            "level": "INFO",
+            "propagate": True,
+        },
+
+        # 2) Логгер для вашого застосунку
+        "myapp": {
+            "handlers": ["console", "file_info", "file_errors"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+
+        # 3) Логгер безпеки (як альтернатива)
+        "security": {
+            "handlers": ["file_errors"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+}
