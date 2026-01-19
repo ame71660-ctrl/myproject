@@ -1,0 +1,3 @@
+[INFO] 2026-01-19 16:34:30,472 myapp: INFO: index opened
+[WARNING] 2026-01-19 16:34:30,472 myapp: WARNING: test warning
+[ERROR] 2026-01-19 16:34:30,472 myapp: ERROR: test error
