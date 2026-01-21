@@ -186,15 +186,14 @@ LOGGING = {
             "propagate": True,
         },
 
-        # 2) Логгер для вашого застосунку
+   
         "myapp": {
             "handlers": ["console", "file_info", "file_errors"],
             "level": "DEBUG",
             "propagate": False,
         },
 
-        # 3) Логгер безпеки (як альтернатива)
-        "security": {
+        "security": 
             "handlers": ["file_errors"],
             "level": "WARNING",
             "propagate": False,
