@@ -132,8 +132,7 @@ os.makedirs(LOG_DIR, exist_ok=True)
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-
-    # --- Фільтри ---
+    
     "filters": {
         "require_debug_true": {
             "()": "django.utils.log.RequireDebugTrue",
@@ -142,8 +141,7 @@ LOGGING = {
             "()": "django.utils.log.RequireDebugFalse",
         },
     },
-
-    # --- Форматери ---
+    
     "formatters": {
         "verbose": {
             "format": "[{levelname}] {asctime} {name}: {message}",
@@ -154,8 +152,7 @@ LOGGING = {
             "style": "{",
         },
     },
-
-    # --- Хендлери ---
+    
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
@@ -177,9 +174,8 @@ LOGGING = {
         },
     },
 
-    # --- Логгери ---
     "loggers": {
-        # 1) Логгер Django
+      
         "django": {
             "handlers": ["console", "file_errors"],
             "level": "INFO",
