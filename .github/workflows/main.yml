@@ -11,27 +11,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.11
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Linting
-      run: |
-        flake8 myapp/
+      - name: Linting
+        run: flake8 myapp/
 
-    - name: Run tests
-      run: |
-        pytest myapp/tests/
+      - name: Run tests
+        run: pytest myapp/tests/
 
-    - name: Build project
-      run: |
-        python -m build || echo "No setup.py, skipping build"
+      - name: Build project
+        run: python -m build || echo "No setup.py, skipping build"
